@@ -12,13 +12,14 @@ def index():
     form = MainForm()
     return render_template('index.html', form=form)
 
+
 @app.route('/check', methods=['POST'])
 def check():
     form = MainForm()
     if form.validate_on_submit():
         title = get_title(form.text.data)
         keyword = keywords(form.text.data, words=form.keywords_no.data)
-        summary = summary_highlight(form.text.data, ratio=form.percentage.data/100,
+        summary = summary_highlight(form.text.data, coref=form.coref.data, ratio=form.percentage.data/100,
                                     omit_placeholders=form.rm_placeholders.data)
         return jsonify(data={'summary': '{}'.format(summary), 'title': '{}'.format(title),
                              'keywords': '{}'.format(keyword)})

@@ -21,8 +21,7 @@ WEIGHT_THRESHOLD = 1.e-3
 logger = logging.getLogger(__name__)
 
 
-
-def summarize(text, ratio=0.2, word_count=None, split=False, omit_placeholders=False):
+def summarize(text, coref, ratio=0.2, word_count=None, split=False, omit_placeholders=False):
     """
     This is a improved version of gensim's summarization library. It includes 
     the option to exclude placeholders from summary generation & implemented 
@@ -56,6 +55,7 @@ def summarize(text, ratio=0.2, word_count=None, split=False, omit_placeholders=F
     """
     # Gets a list of processed sentences.
     sentences = _clean_text_by_sentences(text)
+    coref_sentences = _clean_text_by_sentences(coref)
 
     # If need to omit [placeholders], delete the [placeholders] first
     if omit_placeholders:
@@ -80,7 +80,7 @@ def summarize(text, ratio=0.2, word_count=None, split=False, omit_placeholders=F
     if len(sentences) < INPUT_MIN_LENGTH:
         logger.warning("Input text is expected to have at least " + str(INPUT_MIN_LENGTH) + " sentences.")
 
-    corpus = _build_corpus(sentences)
+    corpus = _build_corpus(coref_sentences)
 
     most_important_docs = summarize_corpus(corpus, ratio=ratio if word_count is None else 1)
 

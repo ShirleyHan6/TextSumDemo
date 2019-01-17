@@ -17,6 +17,11 @@
                     <label>Text Input</label>
                     {{ form.text(class='form-control', placeholder='Text', rows=8) }} 
                 </div>
+                <div class="checkbox">
+                    <label>
+                        {{ form.coref }} Coreference Resolution
+                    </label>
+                </div>
                 <div class="form-group">
                     <label> Summary Percentage: </label> {{ form.percentage(maxlength=3, class='form-control', placeholder='0-100') }}
                 </div>
