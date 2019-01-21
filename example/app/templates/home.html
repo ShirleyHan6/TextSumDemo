@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0"/>
+  <title>Extractive Text Summarization Demo</title>
+
+  <!-- CSS  -->
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link href={{ url_for('static', filename='css/materialize.css') }} />
+  <link href={{ url_for('static', filename='css/style.css') }} /><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+</head>
+<body>
+  <nav class="light-blue lighten-1" role="navigation">
+    <div class="nav-wrapper container"><a id="logo-container" href="#" class="brand-logo">Logo</a>
+      <ul class="right hide-on-med-and-down">
+        <li ><a href="https://github.com/ShirleyHan6/gensim_sum_ext">
+          <img hspace="-40" vspace="5" src="https://cdn3.iconfinder.com/data/icons/popular-services-brands/512/github-512.png" alt="Trulli" width="50" height="50">
+          </a></li>
+      </ul>
+
+      <ul id="nav-mobile" class="sidenav">
+        <li><a href="https://github.com/ShirleyHan6/gensim_sum_ext">
+          Github Link
+          <img src="https://cdn3.iconfinder.com/data/icons/popular-services-brands/512/github-512.png" alt="Trulli" width="50" height="50">
+         </a>
+        </li>
+      </ul>
+      <a href="#" data-target="nav-mobile" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+    </div>
+  </nav>
+  <div class="section no-pad-bot" id="index-banner">
+    <div class="container">
+      <br><br>
+      <h1 class="header center orange-text">TextRank for Summarization Demo</h1>
+      <div class="row center">
+        <h5 class="header col s12 light"></h5>
+      </div>
+      <!-- <div class="row center">
+        <a href="#" id="download-button" class="btn-large waves-effect waves-light orange">A Live Demo</a>
+      </div> -->
+      <br><br>
+       <form method="POST" class="col s12">
+            <div class="input-field col s6" id="content">
+                <input type="text" class="searchbar" name="query" id="query">
+                <label for="content">Text</label>
+            </div>
+        </form>
+    </div>
+  </div>
+
+  <div class="container">
+    <div class="section">
+            <form>
+                {{ form.hidden_tag() }}
+                <div class="form-group">
+                    <label>Text Input</label>
+                    {{ form.text(class='form-control', placeholder='Text', rows=8) }} 
+                </div>
+                <div class="checkbox">
+                    <label>
+                        {{ form.coref }} Coreference Resolution
+                    </label>
+                </div>
+                <div class="form-group">
+                    <label> Summary Percentage: </label> {{ form.percentage(maxlength=3, class='form-control', placeholder='0-100') }}
+                </div>
+                <div class="form-group">
+                    <label> Number of Keywords: </label> {{ form.keywords_no(class='form-control', placeholder='>0') }}
+                </div>
+                <div class="checkbox"> 
+                    <label>  
+                        {{ form.rm_placeholders }} Remove Placeholders
+                    </label>  
+                </div>
+                <p> <input type="submit" value="Summarize" class="btn btn-default"></p>
+            </form>
+            <img src="{{ url_for('static', filename='rotate.gif') }}" height="36" width="36" id="loader"></img>
+
+            <div class="row customrow" id="result-div">
+                <p><b>Title:</b> <text id="title"></text></p>
+                <p><b>Keywords:</b> <text id="keywords"></text></p>
+                <p><b>Summary: </b>(<mark><em>Highlighted</em></mark>) </p>
+                <p id="summary"></p>
+            </div>
+        </div>
+    </div>
+    <br><br>
+  </div>
+
+  <footer class="page-footer orange">
+    <div class="container">
+      <div class="row">
+        <div class="col l6 s12">
+          <h5 class="white-text">What the demo shows</h5>
+          <p class="grey-text text-lighten-4">This is a demo on extractive text summarization using graphs.The algorithm is a variation of PageRank.</p>
+        </div>
+        <div class="col l3 s12">
+          <h5 class="white-text">Tech Stack Credit</h5>
+          <ul>
+            <li><a class="white-text" href="https://web.eecs.umich.edu/~mihalcea/papers/mihalcea.emnlp04.pdf">TextRank Algorithm</a></li>
+            <li><a class="white-text" href="https://github.com/huggingface/neuralcoref">
+            Coreference Resolution Model</a></li>
+            <li><a class="white-text" href="http://flask.pocoo.org/">
+            Flask Web Framework</a></li>
+            <li><a class="white-text" href="https://materializecss.com/getting-started.html">Materialize Front-end Framework</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="footer-copyright">
+      <div class="container">
+      Made by <a class="orange-text text-lighten-3" href="http://materializecss.com">Han Simeng, Felix Putera NTU MICL Lab</a>
+      </div>
+    </div>
+  </footer>
+
+
+  <!--  Scripts-->
+  <script type=text/javascript src="{{ url_for('static', filename='jquery-3.2.0.js') }}"></script>
+  <script>
+      $("#loader").hide();
+      $("#result-div").hide();
+      $(document).ready(function() {
+          $('form').submit(function (e) {
+              var url = "{{ url_for('check') }}";
+              $.ajax({
+                  type: "POST",
+                  url: url,
+                  data: $('form').serialize(), 
+                  beforeSend: function() {
+                      $("#loader").show();
+                      $("#result-div").hide();
+                  },
+                  success: function (data) {
+                      $("#loader").hide();
+                      $("#result-div").show();
+                      document.getElementById("title").innerHTML = data.data.title;
+                      document.getElementById("keywords").textContent = data.data.keywords;
+                      document.getElementById("summary").innerHTML = data.data.summary;
+                  }
+              });
+              e.preventDefault(); // block the traditional submission of the form.
+          });
+          // Inject our CSRF token into our AJAX request.
+          $.ajaxSetup({
+              beforeSend: function(xhr, settings) {
+                  if (!/^(GET|HEAD|OPTIONS|TRACE)$/i.test(settings.type) && !this.crossDomain) {
+                      xhr.setRequestHeader("X-CSRFToken", "{{ form.csrf_token._value() }}")
+                  }
+              }
+          })
+      });
+  </script>
+  <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+  <script src="{{ url_for('static', filename='js/init.js') }}"></script>
+  <script src="{{ url_for('static', filename='js/materialize.js') }}"></script>
+
+  </body>
+</html>
