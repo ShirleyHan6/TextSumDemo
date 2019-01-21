@@ -1,5 +1,7 @@
+# -*- coding: utf-8 -*-
+from __future__ import unicode_literals
 from gensim.summarization.summarizer import _format_results
-from summarizer import summarize
+from .summarizer import summarize
 from gensim.summarization.textcleaner import clean_text_by_sentences as _clean_text_by_sentences
 
 import en_coref_md

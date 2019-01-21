@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+from __future__ import unicode_literals
 from flask_wtf import FlaskForm
 from wtforms import validators, TextAreaField, IntegerField, BooleanField, SubmitField
 

@@ -10,6 +10,7 @@
   <link href={{ url_for('static', filename='css/materialize.css') }} />
   <link href={{ url_for('static', filename='css/style.css') }} /><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
 </head>
+
 <body>
   <nav class="light-blue lighten-1" role="navigation">
     <div class="nav-wrapper container"><a id="logo-container" href="#" class="brand-logo">Logo</a>
@@ -44,30 +45,23 @@
   </div>
 s
   <div class="container">
-{#    <div class="section">#}
+<!-- {#    <div class="section">#} -->
             <form>
-                <div class="input-field col s6" id="content">
-                  <input type="text" class="searchbar" name="query" id="query">
-                  <label for="content">Text</label>{{ form.text(class='form-control', placeholder='Text', rows=8) }}
+                 {{ form.hidden_tag() }}
+                <div class="form-group">
+                    <label>Text Input</label>
+                    {{ form.text(class='form-control', placeholder='Text', rows=8) }} 
                 </div>
-                <div class="input-field col s6" id="content">
-                  <input type="text" class="searchbar" name="query" id="query">
-                  <label for="content">Number of keywords</label>{{ form.keywords_no(class='form-control', placeholder='>0') }}
+                <div class="form-group">
+                    <label> Summary Percentage: </label> {{ form.percentage(maxlength=3, class='form-control', placeholder='0-100') }}
                 </div>
-                <p class="range-field">
-                    <input type="range" id="test5" min="0" max="100" />
-                </p>
-                <div class="checkbox">
-                  <label>
-                    <input type="checkbox" class="filled-in" checked="checked" />
-                    <span>{{ form.coref }} Coreference Resolution</span>
-                  </label>
+                <div class="form-group">
+                    <label> Number of Keywords: </label> {{ form.keywords_no(class='form-control', placeholder='>0') }}
                 </div>
                 <div class="checkbox"> 
-                  <label>
-                    <input type="checkbox" class="filled-in" checked="checked" />
-                    <span>{{ form.rm_placeholders }} Remove Placeholders</span>
-                  </label>
+                    <label>  
+                        {{ form.rm_placeholders }} Remove Placeholders
+                    </label>  
                 </div>
                 <p> <input type="submit" value="Summarize" class="btn btn-default"></p>
             </form>
@@ -79,7 +73,7 @@ s
                 <p><b>Summary: </b>(<mark><em>Highlighted</em></mark>) </p>
                 <p id="summary"></p>
             </div>
-{#        </div>#}
+<!-- {#        </div>#} -->
     </div>
 
   <footer class="page-footer orange">

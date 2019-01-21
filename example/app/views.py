@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+from __future__ import unicode_literals
 from flask import render_template, jsonify
 from gensim.summarization import keywords
 
@@ -9,7 +11,7 @@ from .process import summary_highlight
 @app.route('/', methods=['GET'])
 def index():
     form = MainForm()
-    return render_template('home.html', form=form)
+    return render_template('index.html', form=form)
 
 
 @app.route('/check', methods=['POST'])
