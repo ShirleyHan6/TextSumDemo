@@ -1,4 +1,5 @@
-from gensim.summarization.summarizer import _format_results, summarize
+from gensim.summarization.summarizer import _format_results
+from summarizer import summarize
 from gensim.summarization.textcleaner import clean_text_by_sentences as _clean_text_by_sentences
 
 import en_coref_md
