@@ -381,7 +381,7 @@ def summarize_corpus(corpus, ratio=0.2):
 
     return [list(doc) for doc in hashable_corpus[:sentence_length]]
 
-def summarize(text, coref, ratio=0.2, word_count=None, split=False):
+def summarize(text, coref, ratio, word_count=None, split=False):
     """Get a summarized version of the given text.
 
     The output summary will consist of the most representative sentences

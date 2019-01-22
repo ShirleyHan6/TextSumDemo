@@ -1,3 +1,5 @@
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -48,23 +50,31 @@ s
 <!-- {#    <div class="section">#} -->
             <form>
                  {{ form.hidden_tag() }}
-                <div class="form-group">
-                    <label>Text Input</label>
-                    {{ form.text(class='form-control', placeholder='Text') }} 
-                </div>
-                <div class="form-group">
-                    <label> Summary Percentage: </label> {{ form.percentage(maxlength=3, class='form-control', placeholder='0-100') }}
-                </div>
-                <div class="form-group">
-                    <label> Number of Keywords: </label> {{ form.keywords_no(class='form-control', placeholder='>0') }}
-                </div>
-                <div class="checkbox"> 
-                    <label>  
-                        Remove Placeholders: {{ form.rm_placeholders }} 
-                    </label>  
-                </div>
+                 <div class="row">
+			        <div class="input-field col s6">
+			          <input name="text" placeholder="Placeholder" id="first_name" type="text" class="validate">
+			          <label for="first_name">Text Input</label>
+			        </div>
+			    </div>
+			    <div class="row">
+			        <div class="input-field col s6">
+			          <input name="keywords_no" placeholder="Placeholder" id="first_name" type="text" class="validate">
+			          <label for="first_name">Keywords Number</label>
+			        </div>
+			    </div>
+
+                <p class=range-field">
+			      <input type="range" name="percentage" id="test5" min="0" max="100" />
+			    </p>
+            	<p>
+			     	<label>
+			        <input type="checkbox" name="coref" class="filled-in" checked="checked" />
+			        <span>Coreference Resolution</span>
+			        </label>
+		    	</p>
                 <p> <input type="submit" value="Summarize" class="btn waves-effect waves-teal"></p>
             </form>
+
               <div class="progress" id="loader">
                 <div class="indeterminate"></div>
               </div>
@@ -72,7 +82,7 @@ s
             <div class="row customrow" id="result-div">
                 <p class="flow-text"><b>Title:</b> <text id="title"></text></p>
                 <p class="flow-text"><b>Keywords:</b> <text id="keywords"></text></p>
-                <p class="flow-text"><b>Summary: </b>(<mark><em style="color:orange;">Highlighted</em></mark>) </p>
+                <p class="flow-text"><b>Summary: </b>(<mark><em>Highlighted</em></mark>) </p>
                 <p class="flow-text" id="summary"></p>
             </div>
 <!-- {#        </div>#} -->

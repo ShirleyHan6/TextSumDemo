@@ -9,8 +9,13 @@ import en_coref_md
 nlp = en_coref_md.load()
 
 
+try:
+    unicode_ = unicode  # Python 2
+except NameError:
+    unicode_ = str      # Python 3
+
 def find_coreference_replace_pronominal(original_sents):
-    u = original_sents.decode('utf8','ignore')
+    u = text = unicode_(original_sents)
     #u = unicode(original_sents[i], "utf-8")
     doc = nlp(u)
     if doc._.has_coref:
@@ -24,7 +29,7 @@ def summary_highlight(text, coref, ratio):
     else:
         coref_text = text
 
-    sum_text = summarize(text, coref_text, ratio=ratio)
+    sum_text = summarize(text, coref_text,ratio)
     # extracted_sentences_number = get_extracted_number(sum_text, text)
 
     original_sentence_list = _format_results(_clean_text_by_sentences(text), True)
