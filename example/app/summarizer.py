@@ -370,16 +370,14 @@ def summarize_corpus(corpus, ratio=0.2):
         # logger.warning("Please add more sentences to the text. The number of reachable nodes is below 3")
         return []
 
+    logger.info('Pagerank graph')
     pagerank_scores = _pagerank(graph)
 
+    logger.info('Sorting pagerank scores')
     hashable_corpus.sort(key=lambda doc: pagerank_scores.get(doc, 0), reverse=True)
 
-    # For CNN news: the number of sentences must be 3. Ranked first 3
-    sentence_length = 3
-    # For DailyMail news: the number of sentences must be 4.
-    # sentence_length = 4
+    return [list(doc) for doc in hashable_corpus[:int(len(corpus) * ratio)]]
 
-    return [list(doc) for doc in hashable_corpus[:sentence_length]]
 
 def summarize(text, coref, ratio, word_count=None, split=False):
     """Get a summarized version of the given text.
