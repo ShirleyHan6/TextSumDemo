@@ -11,7 +11,7 @@ from .process import summary_highlight
 @app.route('/', methods=['GET'])
 def index():
     form = MainForm()
-    return render_template('index2.html', form=form)
+    return render_template('index.html', form=form)
 
 
 @app.route('/check', methods=['POST'])
