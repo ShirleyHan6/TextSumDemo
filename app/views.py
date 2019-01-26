@@ -16,16 +16,13 @@ def index():
 
 @app.route('/check', methods=['POST'])
 def check():
-    print("The form is called.")
     form = MainForm()
     if form.validate_on_submit():
-        print("The form is validated.")
         text = form.data['text']
         title = "title"
-        keyword = keywords(text, words=form.data['keywords_no'])
+        keyword = keywords(text, words=form.data['keywords_no'], lemmatize=True)
         summary = summary_highlight(text, form.data['coref'], 
             form.data['percentage']/100)
-        print(form.data['percentage']/100)
         return jsonify(data={'summary': '{}'.format(summary), 'title': '{}'.format(title),
                              'keywords': '{}'.format(keyword)})
     return jsonify(data=form.errors)
