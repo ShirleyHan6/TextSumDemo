@@ -1,7 +1,5 @@
 Flask==0.12
 Flask-WTF==0.14.2
 gensim
-https://github.com/huggingface/neuralcoref-models/releases/download/en_coref_md-3.0.0/en_coref_md-3.0.0.tar.gz
-spacy==2.0.12
 gunicorn
 
