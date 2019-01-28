@@ -4,28 +4,29 @@ from gensim.summarization.summarizer import _format_results
 from .summarizer import summarize
 from gensim.summarization.textcleaner import clean_text_by_sentences as _clean_text_by_sentences
 
-import en_coref_md
-
-nlp = en_coref_md.load()
-
-
-try:
-    unicode_ = unicode  # Python 2
-except NameError:
-    unicode_ = str      # Python 3
-
-def find_coreference_replace_pronominal(original_sents):
-    u = text = unicode_(original_sents)
-    #u = unicode(original_sents[i], "utf-8")
-    doc = nlp(u)
-    if doc._.has_coref:
-        original_sents = str(doc._.coref_resolved)
-    return original_sents
+# import en_coref_md
+#
+# nlp = en_coref_md.load()
+#
+#
+# try:
+#     unicode_ = unicode  # Python 2
+# except NameError:
+#     unicode_ = str      # Python 3
+#
+# def find_coreference_replace_pronominal(original_sents):
+#     u = text = unicode_(original_sents)
+#     #u = unicode(original_sents[i], "utf-8")
+#     doc = nlp(u)
+#     if doc._.has_coref:
+#         original_sents = str(doc._.coref_resolved)
+#     return original_sents
 
 
 def summary_highlight(text, coref, ratio):
     if coref:
-        coref_text = find_coreference_replace_pronominal(text)
+       #  coref_text = find_coreference_replace_pronominal(text)
+        coref_text = text
     else:
         coref_text = text
 
