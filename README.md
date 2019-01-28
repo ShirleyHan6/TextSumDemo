@@ -1,5 +1,5 @@
 # textsumdemo
-Text Summarization with Graphs
+Text Summarization with Graphs(supports documents in all kinds of domains and all languages)
 
 Live Demo: https://textsumdemo.herokuapp.com/
 
