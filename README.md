@@ -10,5 +10,9 @@ Instructions for setting up:
 
 The webpage will be available in 127.0.0.1:5000
 
+# Acknowledgement
+1. Summarization Algorithm: https://web.eecs.umich.edu/~mihalcea/papers/mihalcea.emnlp04.pdf
+2. Front-end Framework: https://materializecss.com/getting-started.html
+
 
 
